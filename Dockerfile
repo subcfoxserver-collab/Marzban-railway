@@ -1,4 +1,4 @@
 FROM gozargah/marzban:latest
 RUN apt-get update && apt-get install -y socat && rm -rf /var/lib/apt/lists/*
-ENV SUDO_PASSWORD=123456
-CMD bash -c 'rm -f /var/lib/marzban/db.sqlite3 && alembic upgrade head && python main.py & sleep 3 && socat TCP-LISTEN:8080,fork,reuseaddr TCP:127.0.0.1:8000'
+CMD bash -c 'alembic upgrade head && MARZBAN_ADMIN_PASSWORD="123456" marzban-cli admin delete -u admin -y 2>/dev/null; MARZBAN_ADMIN_PASSWORD="123456" marzban-cli admin create -u admin --sudo && python main.py & sleep 3 && socat TCP-LISTEN:8080,fork,reuseaddr TCP:127.0.0.1:8000'
+
