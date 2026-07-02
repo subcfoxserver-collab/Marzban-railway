@@ -4,8 +4,7 @@
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "python marzban.py",
+    "startCommand": "bash -c 'alembic upgrade head && python main.py'",
     "restartPolicyType": "ON_FAILURE"
   }
 }
-
